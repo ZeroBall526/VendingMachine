@@ -9,7 +9,7 @@
 
 ### Team
 
-* **[ZeroBall_0526]
+* **[ZeroBall_0526]**
 * **[suhyunme]**
 * **[Kimchohwi]**
 * **[Phg0122]**
