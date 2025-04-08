@@ -44,7 +44,7 @@ public class VendingMachineEngine {
         if(!intergrity) return false; //만약 무결성검사에서 실패가 날시 바로 제조작업 취소
 
         //커피제조 단계
-        moneyBox.deductMoney(Main.menus[choice-1].getPrice()); //돈통에 수금
+        moneyBox.deductMoney(Main.menus[choice-1].getPrice()); //돈통에 수금 박홍근-> integrityCheck 메서드로 가야할 것 같음
 
         //재료 소진을 통한 커피 제조
         switch(choice){
