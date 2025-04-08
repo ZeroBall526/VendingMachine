@@ -70,7 +70,7 @@ public class MoneyBox {
     }
     
     public int[] remainingMoney() {//잔돈을 반환해주는 매서드 무결성 검사 이후이므로 데이터를 조작 
-    	int changeMoney[] = new int[5];//거스름도 배열 선언및 초기화
+    	int changeMoney[] = new int[5];//거스름돈 배열 선언및 초기화
     	while(totalGetMoney !=0) { //거슬러줄 돈이 0 이 될때까지 로직 반복, getTotalMoney는 자연스럽게 0으로 초기화
             if (totalGetMoney>=10000 && money[4] !=0) {
                 changeMoney[4]++;
@@ -98,7 +98,7 @@ public class MoneyBox {
         return changeMoney;//잔돈 반환
     }
 
-    public int[] refunds() {//환불해주는 매서드 커피제공이 불가능할때 맏았던 돌을 돌려줘야하지 않을까해서 제작했는데 필요 없으면 사용x 다만 해당 매서드를 사용해야 커피제공이 불가능할때 totalGEtMoney와 getMoneyBox가 변수가 초기화됨
+    public int[] refunds() {//환불해주는 매서드 커피제공이 불가능할때 받았던 돌을 돌려줘야하지 않을까해서 제작했는데 필요 없으면 사용x 다만 해당 매서드를 사용해야 커피제공이 불가능할때 totalGEtMoney와 getMoneyBox가 변수가 초기화됨
     	int y[] = new int [5];
     	for (int j =0; j<5; j++) {
     		y[j] = getMoneyBox[j];
