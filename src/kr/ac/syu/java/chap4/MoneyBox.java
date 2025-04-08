@@ -37,7 +37,7 @@ public class MoneyBox {
 
     public boolean deductMoney(int cost) {//박홍근:설명추가->받은돈이 부족하지 않은지 boolean값으로 반환
         if(getMoney>=cost) {
-            getMoney -= cost;// 받은돈의 총액을 거슬러줄 돈의 총액으로 변환
+            getMoney -= cost;//박홍근: 받은 돈이 충분할 경우 true를 반환하고 받은돈에서 가격을 뺌-> 즉 거슬러줘야 되는 돈의 총액이 계산됨
             return true;
         }else {
             return false;
