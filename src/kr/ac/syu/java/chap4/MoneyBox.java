@@ -73,7 +73,7 @@ public class MoneyBox {
         return true;
     }
 
-    public int[] remainingMoney() {
+    public int[] remainingMoney() {//거슬러줄 화페의 배열(ex 100원2개 500원1개)을 반환하는 매서드 
         return changeMoney;
     }
 
