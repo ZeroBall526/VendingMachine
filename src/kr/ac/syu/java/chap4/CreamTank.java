@@ -12,7 +12,20 @@ public class CreamTank {
         return false;
     }
     // 이진원이 수정 요청
+    // 크림을 사용할 수 있는지 없는지 boolean으로 알려주는 코드
     public boolean availableCream(int use) {
         return creamAmount >= use;
     }
+    /*
+    다른 클래스에서 (VendingMachine?)에서
+    대충 호출해서 이런식으로 쓰기
+    WaterTank tank = new WaterTank();
+
+    if (tank.availableWater(150)) {
+        System.out.println("크림 사용 가능!");
+    } else {
+        System.out.println("크림 부족!");
+    }
+    
+     */
 }
