@@ -11,4 +11,8 @@ public class CreamTank {
         }
         return false;
     }
+    // 이진원이 수정 요청
+    public boolean availableCream(int use) {
+        return creamAmount >= use;
+    }
 }
