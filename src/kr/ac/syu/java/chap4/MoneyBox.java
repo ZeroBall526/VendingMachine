@@ -1,7 +1,7 @@
 package kr.ac.syu.java.chap4;
 
 public class MoneyBox {
-    private int money[] = new int[5];// 현재 보유한 화폐의 양
+     private int money[] = {5,5,5,5,5};// 현재 보유한 화폐의 양, 박홍근:수정-> 초기에 화폐를 각각 5개씩 보유하도록 변경
 
     private int getMoney = 0;//받은돈의 총액
 
