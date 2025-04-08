@@ -35,7 +35,7 @@ public class MoneyBox {
         }
     }
 
-    public boolean deductMoney(int cost) {
+    public boolean deductMoney(int cost) {//박홍근:설명추가->받은돈이 부족하지 않은지 boolean값으로 반환
         if(getMoney>=cost) {
             getMoney -= cost;// 받은돈의 총액을 거슬러줄 돈의 총액으로 변환
             return true;
