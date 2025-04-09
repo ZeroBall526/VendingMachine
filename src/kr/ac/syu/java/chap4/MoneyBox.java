@@ -71,7 +71,7 @@ public class MoneyBox {
     
     public int[] remainingMoney() {//잔돈을 반환해주는 매서드 무결성 검사 이후이므로 데이터를 조작 
     	int changeMoney[] = new int[5];//거스름돈 배열 선언및 초기화
-    	while(totalGetMoney !=0) { //거슬러줄 돈이 0 이 될때까지 로직 반복, getTotalMoney는 자연스럽게 0으로 초기화
+    	while(totalGetMoney !=0) { //거슬러줄 돈이 0 이 될때까지 로직 반복, totalGetMoney는 자연스럽게 0으로 초기화
             if (totalGetMoney>=10000 && money[4] !=0) {
                 changeMoney[4]++;
                 money[4] --;
