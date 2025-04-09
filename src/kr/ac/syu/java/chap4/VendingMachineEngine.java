@@ -73,7 +73,7 @@ public class VendingMachineEngine {
         switch(choice){
             case 3:
                 //고급 커피 레시피
-                //cameOutCoffee = "고급커피";
+                //cameOutCoffee  = "고급커피";
                 waterTank.useWater(150);
                 premiumCoffeeBox.useCoffee(20);
                 creamTank.useCream(20);
