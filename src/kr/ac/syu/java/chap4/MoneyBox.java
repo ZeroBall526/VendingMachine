@@ -51,16 +51,16 @@ public class MoneyBox {
 
     public boolean remainJudge() { 
     	int x = totalGetMoney; // x에 totalGetMoney값을 임시로 저장해 무결성검사가 데이터에 영향을 미치지 않게함
-        while(totalGetMoney !=0) { //거슬러줄 돈이 0 이 될때까지 로직 반복
-            if (totalGetMoney>=10000 && money[4] !=0) {
+        while(x !=0) { //거슬러줄 돈이 0 이 될때까지 로직 반복
+            if (x>=10000 && money[4] !=0) {
                 x -= 10000;
-            }else if (totalGetMoney>=5000 && money[3] !=0) {
+            }else if (x>=5000 && money[3] !=0) {
                 x -= 5000;
-            }else if (totalGetMoney>=1000 && money[2] !=0) {
+            }else if (x>=1000 && money[2] !=0) {
                 x -= 1000;
-            }else if (totalGetMoney>=500 && money[1] !=0) {
+            }else if (x>=500 && money[1] !=0) {
                 x -= 500;
-            }else if (totalGetMoney>=100 && money[0] !=0) {
+            }else if (x>=100 && money[0] !=0) {
             	x -= 100;
             }else {
             	return false;//잔돈이 부족하면 false 반환
