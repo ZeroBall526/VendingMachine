@@ -19,14 +19,39 @@ public class VendingMachineEngine {
     private final MoneyBox moneyBox = new MoneyBox();
 
     //저지패턴
-    private boolean integrityCheck(){
+    private boolean integrityCheck(int price){
         //NOTE : intergrityCheck 메서드의 조건문은 항상 failReason과 함께하는 전제로 설계되어있어요
-        //거스름돈 잔고 체크
-        if(!moneyBox.remainJudge()) {
-            failReason = "거스름돈 잔고가 부족합니다!";
+        // 모든 재고가 어떤 커피를 만들든 충분히 제작할수 있는가 검증
+        if(!moneyBox.deductMoney(price)){
+            failReason = "투입하신 금액이 부족해요!";
+            moneyBox.refunds();
             return false;
         }
-        //TODO: 물탱크, 크림탱크, 커피박스 재고 무결성 검사
+        if(!moneyBox.remainJudge()) {
+            failReason = "거스름돈 잔고가 부족합니다!";
+            moneyBox.refunds();
+            return false;
+        }
+        if(!coffeeBox.enoughCoffee(20)){
+            failReason = "커피가루가 부족합니다!";
+            moneyBox.refunds();
+            return false;
+        }
+        if(!premiumCoffeeBox.enoughCoffee(20)){
+            failReason = "프리미엄 커피가루가 부족합니다!";
+            moneyBox.refunds();
+            return false;
+        }
+        if(!waterTank.availableWater(150)){
+            failReason = "물이 부족합니다!";
+            moneyBox.refunds();
+            return false;
+        }
+        if(!creamTank.availableCream(20)){
+            failReason = "크림이 부족합니다!";
+            moneyBox.refunds();
+            return false;
+        }
         return true;
     }
 
@@ -37,14 +62,12 @@ public class VendingMachineEngine {
 
     //실행 패턴
     public boolean processSelection(int choice, ArrayList<Integer> money){
-        moneyBox.totalMoney = money.stream().mapToInt(i -> i).toArray(); //money ArrayList -> Int Array로 형 변환
+        moneyBox.totalMoney = money.stream().mapToInt(i -> i).toArray(); //money ArrayList -> Int Array로 형 변환후 돈통에 돈 넣기
+        moneyBox.insertMoney();
 
         //먼저 선택한 번호의 커피가 생산 가능한지 체크
-        boolean intergrity = integrityCheck();
-        if(!intergrity) return false; //만약 무결성검사에서 실패가 날시 바로 제조작업 취소
-
-        //커피제조 단계
-        moneyBox.deductMoney(Main.menus[choice-1].getPrice()); //돈통에 수금 박홍근-> integrityCheck 메서드로 가야할 것 같음
+        boolean integrity = integrityCheck(Main.menus[choice-1].getPrice());
+        if(!integrity) return false; //만약 무결성검사에서 실패가 날시 바로 제조작업 취소
 
         //재료 소진을 통한 커피 제조
         switch(choice){
