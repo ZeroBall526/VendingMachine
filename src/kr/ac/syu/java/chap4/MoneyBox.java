@@ -110,7 +110,7 @@ public class MoneyBox {
     	money[0] -= getMoneyBox[0];
         totalGetMoney = 0;//받은 돈을 돌려주었으므로 0으로 초기화
         int getMoneyBox[] = new int[5];//받은 돈을 돌려주었으므로 초기화
-    	return getMoneyBox;//받은 돈을 배열로 반환(100원 몇개 1000원 몇개 이런식)
+    	return y;//받은 돈을 배열로 반환(100원 몇개 1000원 몇개 이런식)
     }
 
 }
