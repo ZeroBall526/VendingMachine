@@ -1,11 +1,9 @@
 package kr.ac.syu.java.chap4;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 //메뉴 정보를 담당하는 클래스
+//이진원님 구현
 class Menu{
     private final int menuNum; //메뉴 번호
     private final String menuName; //메뉴 이름
@@ -23,6 +21,7 @@ class Menu{
     public int getPrice(){ return price; } //메뉴 가격 가져오기
 }
 
+//이진원님 구현
 public class Main {
     static int total = 0; // 받은 총액
 
@@ -31,52 +30,76 @@ public class Main {
                            new Menu(2,"크림커피",2500),
                            new Menu(3,"고급커피",3000)};
 
-    static private String menuSelectMsg(){
+    private static String menuSelectMsg(){
         String msg = "";
         for (Menu m: menus) msg += m.getMenuNum() + "."+m.getMenuName()+"\n";
         return msg;
     }
 
-    //이진원 구현
+    private final static ArrayList<Integer> availableMoney = new ArrayList<>(Arrays.asList(0,100,500,1000,5000,10000)); // 사용가능한 돈 단위
+    private final static ArrayList<Integer> buttonOptions = new ArrayList<>(Arrays.asList(0)); //사용 가능한 버튼 모음 | 기본값 : 0번 (나가기)
+    private final static ArrayList<Integer> getMoneyList = new ArrayList<>(); //자판기에 받은 돈 저장
+
     public static void main(String[] args) {
-        //TODO : TryCatch 로 올바른 타입인지 구분, 금액투입과 메뉴 선택 모듈화
         Scanner sc = new Scanner(System.in);
         VendingMachineEngine vme = new VendingMachineEngine(); //자판기 엔진 클래스 호출
 
         // 사용가능한 화폐 단위 설정, 사용 가능한 버튼 종류 설정 단계
-        ArrayList<Integer> availableMoney = new ArrayList<>(Arrays.asList(0,100,500,1000,5000,10000)); // 사용가능한 돈 단위
-        ArrayList<Integer> buttonOptions = new ArrayList<>(Arrays.asList(0)); //사용 가능한 버튼 모음 | 기본값 : 0번 (나가기)
         int addMoneyButtonNum = menus.length+1; // '돈 추가로 넣기' 버튼 번호
         for(Menu menu : menus) buttonOptions.add(menu.getMenuNum()); // 메뉴들 버튼 등록
         buttonOptions.add(addMoneyButtonNum); // '돈 추가로 넣기' 버튼 등록
 
-        ArrayList<Integer> getMoneyList = new ArrayList<>();
-
         while (true) {
             //금액 받는 코드
+            putMoney(sc);
+            System.out.println("총 "+total+"원 받았습니다."); //이제까지 받은 금액 출력
+            //메뉴 선택
+            int choice = optionSelect(sc);
+            if(choice==-1) continue; //돈추가 넣기로 이동
+            if(choice==0) break; //자판기 끄기
+            //자판기 동작 시작
+            boolean result = vme.processSelection(choice,getMoneyList);
+            //자판기 동작 실패시 원인 출력
+            if(!result) System.out.println(VendingMachineEngine.failReason);
+            else{
+                //성공시 자판기 초기화
+                total = 0;
+                getMoneyList.clear(); //돈 받은 내역 초기화 -> 이미 VendingMachineEngine에 돈이 들어갔기에 메인에서 계산된 돈은 리셋
+                System.out.println(vme.cameOutCoffee+" 나왔습니다."); // vme 에서 나온 커피 변수 불러오기
+                System.out.println(readableChangeMoney(vme.changeMoney)); // vme 에서 거스름돈 가져오기
+            }
+        }
+        sc.close();
+    }
+
+    private static void putMoney(Scanner sc){
+        while(true){
             System.out.println("금액을 투입하세요: ");
             int money;
             try{
                 money = sc.nextInt();
-            }catch (InputMismatchException e){
+            }catch (InputMismatchException e){ // 올바른 타입이 아닐시
                 System.out.println("올바른 요청이 아니에요! 다시 시도 해주세요");
-                continue;
+                continue; // 돈 투입 과정 다시 실행
             }
 
             if(availableMoney.contains(money)) {
                 //올바른 화폐를 받을시
                 System.out.println(money+"원 받았습니다.");
-                total+=money; // 총액 계산기에
+                total+=money; // 총액에 금액 추가
                 getMoneyList.add(money);
+                break;
             }else{
-                //0,100,500,1000,5000,10000 받을시
+                //0,100,500,1000,5000,10000 이 아닐시
                 System.out.println("올바르지 않은 화폐입니다.");
-                continue;
+                continue; // 돈 투입 과정 다시 실행
             }
-            System.out.println("총"+total+" 원 받았습니다.");
+        }
+    }
 
-            //메뉴 선택
-            System.out.println(menuSelectMsg()+addMoneyButtonNum+".추가 금액 넣기\n0.종료: ");
+    private static int optionSelect(Scanner sc){
+        while(true){
+            System.out.println(menuSelectMsg()+ Collections.max(buttonOptions)+".추가 금액 넣기\n0.종료");
             System.out.println("메뉴 번호를 입력하세요");
             int choice;
             try{
@@ -89,6 +112,7 @@ public class Main {
             //번호 선택이 잘못 됬을 때
             if(!buttonOptions.contains(choice)) {
                 System.out.println("올바르지 않은 번호입니다!");
+                continue;
             }
 
             //0번 입력시
@@ -96,25 +120,31 @@ public class Main {
                 System.out.println("프로그램을 종료합니다.");
                 System.out.println("거스름돈 받으세요:" + getMoneyList + "원");
                 System.out.println("총 액 "+ total+"원");
-                break;
+                return 0;
             }
-            //4번 입력시
-            if(choice == 4){
-                continue;
+            // 추가 금액 넣기 입력시
+            if(choice == Collections.max(buttonOptions)){
+                return -1;
             }
 
-            //자판기 동작시작
-            boolean result = vme.processSelection(choice,getMoneyList);
-            //자판기 동작 실패시 원인 출력
-            if(!result) System.out.println(VendingMachineEngine.failReason);
-            else{
-                //성공시 자판기 초기화
-                total = 0;
-                getMoneyList.clear(); //돈 받은 내역 초기화 -> 이미 VendingMachineEngine에 돈이 들어갔기에 메인에서 계산된 돈은 리셋
-                System.out.println(vme.cameOutCoffee+" 나왔습니다."); // vme 에서 나온 커피 변수 불러오기
-                System.out.println(Arrays.toString(VendingMachineEngine.changeMoney) + "거스름돈 나왔습니다."); // vme 에서 거스름돈 가져오기
+            return choice;
+        }
+    }
+
+    private static String readableChangeMoney(int[] cm){
+        String msg = "";
+        for(int i=0; i<cm.length; i++ ){
+            if(cm[i]>0){
+                msg += availableMoney.get(i+1) +"원 ";
+                if(availableMoney.get(i+1) == 100||availableMoney.get(i+1) == 500)
+                    msg += cm[i]+"개,";
+                else msg += cm[i]+"장,";
             }
         }
-        sc.close();
+        if(!msg.isBlank()) {
+            msg = msg.substring(0,msg.length()-1);
+            msg += " 거스름돈 나왔습니다.";
+        }
+        return msg;
     }
 }

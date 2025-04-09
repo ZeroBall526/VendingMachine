@@ -2,12 +2,12 @@ package kr.ac.syu.java.chap4;
 
 import java.util.ArrayList;
 
-//이진원 구현
+//이진원님 구현
 public class VendingMachineEngine {
     //실패사유 로그 기본값:null
     static String failReason;
     //잔돈 변수 본값:null
-    static int[] changeMoney;
+    int[] changeMoney;
     //나온 커피 변수 기본값:null
     String cameOutCoffee;
 
@@ -22,13 +22,13 @@ public class VendingMachineEngine {
     private boolean integrityCheck(int price){
         //NOTE : intergrityCheck 메서드의 조건문은 항상 failReason과 함께하는 전제로 설계되어있어요
         // 모든 재고가 어떤 커피를 만들든 충분히 제작할수 있는가 검증
-        if(!moneyBox.deductMoney(price)){
-            failReason = "투입하신 금액이 부족해요!";
+        if(!moneyBox.remainJudge()) {
+            failReason = "거스름돈 잔고가 부족합니다!";
             moneyBox.refunds();
             return false;
         }
-        if(!moneyBox.remainJudge()) {
-            failReason = "거스름돈 잔고가 부족합니다!";
+        if(!moneyBox.deductMoney(price)){
+            failReason = "투입하신 금액이 부족해요!";
             moneyBox.refunds();
             return false;
         }
@@ -73,21 +73,18 @@ public class VendingMachineEngine {
         switch(choice){
             case 3:
                 //고급 커피 레시피
-                //cameOutCoffee  = "고급커피";
                 waterTank.useWater(150);
                 premiumCoffeeBox.useCoffee(20);
                 creamTank.useCream(20);
                 break;
             case 2:
                 //크림 커피 레시피
-                //cameOutCoffee = "크림커피";
                 waterTank.useWater(150);
                 coffeeBox.useCoffee(20);
                 creamTank.useCream(20);
                 break;
             case 1:
                 //아메리카노 레시피
-                //cameOutCoffee = "아메리카노";
                 waterTank.useWater(150);
                 coffeeBox.useCoffee(20);
                 break;
@@ -96,7 +93,6 @@ public class VendingMachineEngine {
                 return false;
         }
 
-        //TODO: cameOutCoffee 에 나온 커피
         cameOutCoffee = Main.menus[choice-1].getMenuName();
         changeMoney = moneyBox.remainingMoney();
         return true;

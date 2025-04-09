@@ -1,5 +1,6 @@
 package kr.ac.syu.java.chap4;
 
+// 박홍근님,신수현님 제작
 public class MoneyBox {
     private int money[] = {5,5,5,5,5};// 현재 보유한 화폐의 양, 박홍근:수정-> 초기에 화폐를 각각 5개씩 보유하도록 변경
     
