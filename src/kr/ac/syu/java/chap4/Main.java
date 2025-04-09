@@ -1,5 +1,6 @@
 package kr.ac.syu.java.chap4;
 
+import java.io.IOException;
 import java.util.*;
 
 //메뉴 정보를 담당하는 클래스
@@ -40,7 +41,7 @@ public class Main {
     private final static ArrayList<Integer> buttonOptions = new ArrayList<>(Arrays.asList(0)); //사용 가능한 버튼 모음 | 기본값 : 0번 (나가기)
     private final static ArrayList<Integer> getMoneyList = new ArrayList<>(); //자판기에 받은 돈 저장
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
         VendingMachineEngine vme = new VendingMachineEngine(); //자판기 엔진 클래스 호출
 
@@ -52,6 +53,7 @@ public class Main {
         while (true) {
             //금액 받는 코드
             putMoney(sc);
+            DisplayEngine.clear();
             System.out.println("총 "+total+"원 받았습니다."); //이제까지 받은 금액 출력
             //메뉴 선택
             int choice = optionSelect(sc);
