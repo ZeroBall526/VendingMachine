@@ -65,7 +65,7 @@ public class Main {
 
             if (choice == 0) { // 자판기 종료
                     System.out.println("프로그램을 종료합니다.");
-                    System.out.println("거스름돈 받으세요: " + getMoneyList + "원");
+                    System.out.println("거스름돈 받으세요, " + readableChangeMoney(swapMoneyArray(getMoneyList.stream().mapToInt(i->i).toArray())));
                     System.out.println("총 액 " + total + "원");
                     break;
             }
@@ -194,5 +194,29 @@ public class Main {
             msg.append(" 거스름돈 나왔습니다.");
         }
         return msg.toString();
+    }
+
+    private static int[] swapMoneyArray(int[] moneyArr){
+        int[] result = new int[5];
+        for (int m : moneyArr) {
+            switch (m) {
+                case 100:
+                    result[0]++;
+                    break;
+                case 500:
+                    result[1]++;
+                    break;
+                case 1000:
+                    result[2]++;
+                    break;
+                case 5000:
+                    result[3]++;
+                    break;
+                case 10000:
+                    result[4]++;
+                    break;
+            }
+        }
+        return result;
     }
 }
