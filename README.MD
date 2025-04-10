@@ -28,3 +28,7 @@
 * **[ga-hyeon0318]**
   * CoffeeBox 제작, PremiumCoffeeBox 제작
   * **MoneyBox** 제작 기여
+
+### Special Thanks
+* **[[eunwoo1104]](https://github.com/eunwoo1104)**
+* **[[Danielkim5216]](https://github.com/Danielkim5216)**
