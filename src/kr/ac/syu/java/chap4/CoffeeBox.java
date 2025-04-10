@@ -12,7 +12,7 @@ public class CoffeeBox {
             return false;
         }
     }
-    public boolean enoughCoffee(int amountTest) {
+    public boolean availableCoffee(int amountTest) {
         if( coffeeAmount >= amountTest) {
             return true;
         }

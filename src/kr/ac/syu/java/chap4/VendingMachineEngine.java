@@ -32,12 +32,12 @@ public class VendingMachineEngine {
             moneyBox.refunds();
             return false;
         }
-        if(!coffeeBox.enoughCoffee(20)){
+        if(!coffeeBox.availableCoffee(20)){
             failReason = "커피가루가 부족합니다!";
             moneyBox.refunds();
             return false;
         }
-        if(!premiumCoffeeBox.enoughCoffee(20)){
+        if(!premiumCoffeeBox.availableCoffee(20)){
             failReason = "프리미엄 커피가루가 부족합니다!";
             moneyBox.refunds();
             return false;
