@@ -22,13 +22,13 @@ public class VendingMachineEngine {
     private boolean integrityCheck(int price){
         //NOTE : intergrityCheck 메서드의 조건문은 항상 failReason과 함께하는 전제로 설계되어있어요
         // 모든 재고가 어떤 커피를 만들든 충분히 제작할수 있는가 검증
-        if(!moneyBox.remainJudge()) {
-            failReason = "거스름돈 잔고가 부족합니다!";
+        if(!moneyBox.deductMoney(price)){
+            failReason = "투입하신 금액이 부족해요!";
             moneyBox.refunds();
             return false;
         }
-        if(!moneyBox.deductMoney(price)){
-            failReason = "투입하신 금액이 부족해요!";
+        if(!moneyBox.remainJudge()) {
+            failReason = "거스름돈 잔고가 부족합니다!";
             moneyBox.refunds();
             return false;
         }

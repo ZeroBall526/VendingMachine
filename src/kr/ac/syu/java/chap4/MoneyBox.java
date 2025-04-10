@@ -2,9 +2,9 @@ package kr.ac.syu.java.chap4;
 
 // 박홍근님,신수현님 제작
 public class MoneyBox {
-    private int money[] = {5,5,5,5,5};// 현재 보유한 화폐의 양, 박홍근:수정-> 초기에 화폐를 각각 5개씩 보유하도록 변경
+    private int money[] = {20,20,15,10,5};// 현재 보유한 화폐의 양, 박홍근:수정-> 초기에 화폐를 각각 5개씩 보유하도록 변경
     
-    public int getMoneyBox[] = new int[5];// 화폐단위로 분류된 받은 돈
+    private int getMoneyBox[] = new int[5];// 화폐단위로 분류된 받은 돈 -> 이진원 : 외부클래스 접근이 없으므로 private 캡슐화 권장
     
     private int totalGetMoney = 0;//받은돈의 총액
 
@@ -13,6 +13,8 @@ public class MoneyBox {
     public void insertMoney() { // 돈을 받아서 money와 getMoneyBox에 추가하는메서드
         for(int i :totalMoney) {
             switch(i){
+                case 0: // all moneys input after 0 are ignored due to default behavior of switch operation.
+                    break;
                 case 100:
                     money[0] ++;
                     getMoneyBox[0] ++;
