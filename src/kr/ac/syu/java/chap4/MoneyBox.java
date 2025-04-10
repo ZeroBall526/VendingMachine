@@ -2,7 +2,7 @@ package kr.ac.syu.java.chap4;
 
 // 박홍근님,신수현님 제작
 public class MoneyBox {
-    private int money[] = {20,20,15,10,5};// 현재 보유한 화폐의 양, 박홍근:수정-> 초기에 화폐를 각각 5개씩 보유하도록 변경
+    private int money[] = {5,5,5,5,5};// 현재 보유한 화폐의 양, 박홍근:수정-> 초기에 화폐를 각각 5개씩 보유하도록 변경
     
     private int getMoneyBox[] = new int[5];// 화폐단위로 분류된 받은 돈 -> 이진원 : 외부클래스 접근이 없으므로 private 캡슐화 권장
     
@@ -54,16 +54,22 @@ public class MoneyBox {
 
     public boolean remainJudge() { 
     	int x = totalGetMoney; // x에 totalGetMoney값을 임시로 저장해 무결성검사가 데이터에 영향을 미치지 않게함
+        int[] simulationMoney = money;
         while(x !=0) { //거슬러줄 돈이 0 이 될때까지 로직 반복
-            if (x>=10000 && money[4] !=0) {
+            if (x>=10000 && simulationMoney[4] >-1) {
+                simulationMoney[4]--;
                 x -= 10000;
-            }else if (x>=5000 && money[3] !=0) {
+            }else if (x>=5000 && simulationMoney[3] >-1) {
+                simulationMoney[3]--;
                 x -= 5000;
-            }else if (x>=1000 && money[2] !=0) {
+            }else if (x>=1000 && simulationMoney[2] >-1) {
+                simulationMoney[2]--;
                 x -= 1000;
-            }else if (x>=500 && money[1] !=0) {
+            }else if (x>=500 && simulationMoney[1] >-1) {
+                simulationMoney[1]--;
                 x -= 500;
-            }else if (x>=100 && money[0] !=0) {
+            }else if (x>=100 && simulationMoney[0] >-1) {
+                simulationMoney[0]--;
             	x -= 100;
             }else {
             	return false;//잔돈이 부족하면 false 반환
