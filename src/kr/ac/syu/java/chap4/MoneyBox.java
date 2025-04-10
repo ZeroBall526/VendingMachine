@@ -54,7 +54,7 @@ public class MoneyBox {
 
     public boolean remainJudge() { 
     	int x = totalGetMoney; // x에 totalGetMoney값을 임시로 저장해 무결성검사가 데이터에 영향을 미치지 않게함
-        int[] simulationMoney = money;
+        int[] simulationMoney = money.clone();
         while(x !=0) { //거슬러줄 돈이 0 이 될때까지 로직 반복
             if (x>=10000 && simulationMoney[4] > 0) {
                 simulationMoney[4]--;
@@ -81,23 +81,23 @@ public class MoneyBox {
     public int[] remainingMoney() {//잔돈을 반환해주는 매서드 무결성 검사 이후이므로 데이터를 조작 
     	int changeMoney[] = new int[5];//거스름돈 배열 선언및 초기화
     	while(totalGetMoney !=0) { //거슬러줄 돈이 0 이 될때까지 로직 반복, totalGetMoney는 자연스럽게 0으로 초기화
-            if (totalGetMoney>=10000 && money[4] !=0) {
+            if (totalGetMoney>=10000 && money[4] >0) {
                 changeMoney[4]++;
                 money[4] --;
                 totalGetMoney -= 10000;
-            }else if (totalGetMoney>=5000 && money[3] !=0) {
+            }else if (totalGetMoney>=5000 && money[3] >0) {
                 changeMoney[3] ++;
                 money[3] --;
                 totalGetMoney -= 5000;
-            }else if (totalGetMoney>=1000 && money[2] !=0) {
+            }else if (totalGetMoney>=1000 && money[2] >0) {
                 changeMoney[2] ++;
                 money[2] --;
                 totalGetMoney -= 1000;
-            }else if (totalGetMoney>=500 && money[1] !=0) {
+            }else if (totalGetMoney>=500 && money[1] >0) {
                 changeMoney[1] ++;
                 money[1] --;
                 totalGetMoney -= 500;
-            }else if (totalGetMoney>=100 && money[0] !=0) {
+            }else if (totalGetMoney>=100 && money[0] >0) {
                 changeMoney[0] ++;
                 money[0] --;
                 totalGetMoney -= 100;
