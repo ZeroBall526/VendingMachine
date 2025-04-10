@@ -23,6 +23,7 @@
   * **MoneyBox** 제작
 * **[Kimchohwi]**
   * CreamTank, WaterTank 제작
+  * Main 제작 기여
 * **[Phg0122]**
   * **MoneyBox** 제작
 * **[ga-hyeon0318]**
