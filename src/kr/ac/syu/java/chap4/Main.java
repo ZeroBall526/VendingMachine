@@ -27,8 +27,20 @@ public class Main {
 
     //메뉴 정보
     static Menu[] menus = {new Menu(1,"아메리카노",2000),
-                           new Menu(2,"크림커피",2500),
-                           new Menu(3,"고급커피",3000)};
+            new Menu(2,"크림커피",2500),
+            new Menu(3,"고급커피",3000)};
+
+    // 김초휘 구현: 메뉴판 만들고 싶어서..쩝
+    // 이쁘고 정렬된 메뉴판 보여주는 함수
+    private static void showMenuBoard() {
+        System.out.println("====== 📋 메뉴판 ======");
+        System.out.printf("%-5s | %-10s | %s\n", "번호", "메뉴명", "가격");
+        System.out.println("-----------------------------");
+        for (Menu m : menus) {
+            System.out.printf("%-5d | %-10s | %,6d원\n", m.getMenuNum(), m.getMenuName(), m.getPrice());
+        }
+        System.out.println("=============================\n");
+    }
 
     private static String menuSelectMsg(){
         String msg = "";
@@ -43,6 +55,9 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         VendingMachineEngine vme = new VendingMachineEngine(); //자판기 엔진 클래스 호출
+
+        // 김초휘: 메뉴판 보여주면 좋을 것 같아서 추가해봄...
+        showMenuBoard(); //  메뉴판 보여주기
 
         // 사용가능한 화폐 단위 설정, 사용 가능한 버튼 종류 설정 단계
         int addMoneyButtonNum = menus.length+1; // '돈 추가로 넣기' 버튼 번호
@@ -148,3 +163,6 @@ public class Main {
         return msg;
     }
 }
+
+
+
