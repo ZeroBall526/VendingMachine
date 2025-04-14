@@ -2,7 +2,7 @@ package kr.ac.syu.java.chap4;
 
 import java.util.ArrayList;
 
-public class input {
+public class Input {
     private int choice;
     private ArrayList<Integer> moneyList = new ArrayList<>();
 

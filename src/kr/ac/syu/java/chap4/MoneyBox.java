@@ -17,7 +17,7 @@ public class MoneyBox {
     public void insertMoney() { // 돈을 받아서 money와 getMoneyBox에 추가하는메서드
         for(int i :totalMoney) {
             switch(i){
-                case 0: // all moneys input after 0 are ignored due to default behavior of switch operation.
+                case 0: // all moneys Input after 0 are ignored due to default behavior of switch operation.
                     break;
                 case 100:
                     money[0] ++;

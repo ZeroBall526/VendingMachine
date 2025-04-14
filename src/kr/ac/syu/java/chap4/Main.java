@@ -38,7 +38,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        input values = new input();
+        Input values = new Input();
         VendingMachineEngine vme = new VendingMachineEngine(values); //자판기 엔진 클래스 호출
 
         // 사용가능한 화폐 단위 설정, 사용 가능한 버튼 종류 설정 단계

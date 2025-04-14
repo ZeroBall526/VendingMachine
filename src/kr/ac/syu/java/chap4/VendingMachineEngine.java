@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 //이진원님 구현
 public class VendingMachineEngine {
-    input getInfo;
-    public VendingMachineEngine(input i) {
+    Input getInfo;
+    public VendingMachineEngine(Input i) {
         getInfo = i;
     }
 
