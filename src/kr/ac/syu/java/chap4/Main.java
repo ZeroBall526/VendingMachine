@@ -38,7 +38,8 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        VendingMachineEngine vme = new VendingMachineEngine(); //자판기 엔진 클래스 호출
+        input values = new input();
+        VendingMachineEngine vme = new VendingMachineEngine(values); //자판기 엔진 클래스 호출
 
         // 사용가능한 화폐 단위 설정, 사용 가능한 버튼 종류 설정 단계
         int addMoneyButtonNum = menus.length + 1; // '돈 추가로 넣기' 버튼 번호
@@ -70,8 +71,11 @@ public class Main {
                     break;
             }
 
+            values.setChoice(choice);
+            values.setMoneyList(getMoneyList);
+
             // ==== [자판기 동작 시작] ====
-            boolean result = vme.processSelection(choice, getMoneyList);
+            boolean result = vme.processSelection();
             if (!result) {
                 skipPutMoney = true;
                 System.out.println(VendingMachineEngine.failReason); //자판기 동작 실패시 원인 출력

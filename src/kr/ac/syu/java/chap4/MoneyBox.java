@@ -2,7 +2,11 @@ package kr.ac.syu.java.chap4;
 
 // 박홍근님,신수현님 제작
 public class MoneyBox {
-    private int money[] = {10,10,20,15,10};// 현재 보유한 화폐의 양, 박홍근:수정-> 초기에 화폐를 각각 5개씩 보유하도록 변경
+    public MoneyBox(int[] defaultAmount) {
+        money = defaultAmount;
+    }
+
+    private int money[];// 현재 보유한 화폐의 양, 박홍근:수정-> 초기에 화폐를 각각 5개씩 보유하도록 변경
     
     private int getMoneyBox[] = new int[5];// 화폐단위로 분류된 받은 돈 -> 이진원 : 외부클래스 접근이 없으므로 private 캡슐화 권장
     

@@ -2,7 +2,10 @@ package kr.ac.syu.java.chap4;
 
 //홍가현님 제작
 public class CoffeeBox {
-    private int coffeeAmount = 300;
+    public CoffeeBox(int amount) {
+        coffeeAmount = amount;
+    }
+    int coffeeAmount;
     public boolean useCoffee(int amount) {
         if( coffeeAmount > amount) {
             coffeeAmount -= amount;

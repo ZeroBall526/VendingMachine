@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 //이진원님 구현
 public class VendingMachineEngine {
+    input getInfo;
+    public VendingMachineEngine(input i) {
+        getInfo = i;
+    }
+
     //실패사유 로그 기본값:null
     static String failReason;
     //잔돈 변수 본값:null
@@ -12,11 +17,11 @@ public class VendingMachineEngine {
     String cameOutCoffee;
 
     //필요한 클래스 호출
-    private final WaterTank waterTank = new WaterTank();
-    private final CreamTank creamTank = new CreamTank();
-    private final CoffeeBox coffeeBox = new CoffeeBox();
-    private final PremiumCoffeeBox premiumCoffeeBox = new PremiumCoffeeBox();
-    private final MoneyBox moneyBox = new MoneyBox();
+    private final WaterTank waterTank = new WaterTank(1000);
+    private final CreamTank creamTank = new CreamTank(500);
+    private final CoffeeBox coffeeBox = new CoffeeBox(500);
+    private final PremiumCoffeeBox premiumCoffeeBox = new PremiumCoffeeBox(500);
+    private final MoneyBox moneyBox = new MoneyBox(new int[]{1000, 1000, 100, 50, 50});
 
     //저지패턴
     private boolean integrityCheck(int price){
@@ -60,8 +65,28 @@ public class VendingMachineEngine {
 
     }
 
+    // 받은값 체크
+    public void getValue(){
+        // 정보 값 제대로 받았는지 확인
+        if(getInfo == null) {
+            System.out.println("입력값을 제대로 받지 못했어요 개발자에게 알려주세요.");
+        }
+
+
+        System.out.println(getInfo.getChoice());
+        System.out.println(getInfo.getMoneyList());
+    }
+
     //실행 패턴
-    public boolean processSelection(int choice, ArrayList<Integer> money){
+    public boolean processSelection(){
+        // 정보 값 제대로 받았는지 확인
+        if(getInfo == null) {
+            failReason = "입력값을 제대로 받지 못했어요 개발자에게 알려주세요.";
+            return false;
+        }
+
+        int choice = getInfo.getChoice(); // 자판기에서 고른번호
+        ArrayList<Integer> money = getInfo.getMoneyList(); // 자판기에서 받은돈
         moneyBox.totalMoney = money.stream().mapToInt(i -> i).toArray(); //money ArrayList -> Int Array로 형 변환후 돈통에 돈 넣기
         moneyBox.insertMoney();
 

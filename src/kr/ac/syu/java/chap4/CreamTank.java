@@ -2,7 +2,12 @@ package kr.ac.syu.java.chap4;
 
 //김초휘님 구현
 public class CreamTank {
-    private int creamAmount = 500; // 초기값
+
+    public CreamTank(int amount){
+        creamAmount = amount;
+    }
+
+    private int creamAmount; // 초기값
 
     public boolean useCream(int amount) {
         if (creamAmount >= amount) { // 크림통에 물이 필요한 양보다 적을때
